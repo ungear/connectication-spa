@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from '../../shared/login.service';
 
 @Component({
   selector: 'app-login-page',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-
-  constructor() { }
+  username: string | null = null;
+  password: string | null = null;
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
+  onFormSubmit(): void{
+    if (this.username && this.password) {
+      this.loginService.loginUser(this.username, this.password)
+        .subscribe(x => console.log(x));
+    }
+  }
 }

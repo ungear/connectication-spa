@@ -1,1 +1,5 @@
-<p>login-page works!</p>
+<form (submit)="onFormSubmit()">
+  <input type="text" [(ngModel)]="username" name="username" placeholder="username"/>
+  <input type="text" [(ngModel)]="password" name="password" placeholder="password"/>
+  <button type="submit">Login</button>
+</form>
