@@ -9,6 +9,7 @@ import {LoginService} from '../../shared/login.service';
 export class LoginPageComponent implements OnInit {
   username: string | null = null;
   password: string | null = null;
+  message: string | null = null;
   constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
@@ -16,8 +17,17 @@ export class LoginPageComponent implements OnInit {
 
   onFormSubmit(): void{
     if (this.username && this.password) {
+      this.message = null;
       this.loginService.loginUser(this.username, this.password)
-        .subscribe(x => console.log(x));
+        .subscribe(this.onLoginSuccess.bind(this), this.onLoginFail.bind(this));
     }
+  }
+
+  onLoginSuccess(): void{
+    this.message = 'Login success';
+  }
+
+  onLoginFail(): void {
+    this.message = 'Login failed.Try again';
   }
 }

@@ -7,7 +7,7 @@ export class UserService {
   private accessToken: string | null = null;
   constructor() { }
 
-  setAccessToken(token: string){
+  setAccessToken(token: string): void{
     this.accessToken = token;
   }
 }
