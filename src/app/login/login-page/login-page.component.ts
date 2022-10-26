@@ -24,6 +24,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLoginSuccess(): void{
+    // TODO redirect to the Home page
     this.message = 'Login success';
   }
 
