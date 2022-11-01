@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import {CreateAccountForm} from '../types/createAccountForm.interface';
+import {LoginService} from '../login.service';
 
 @Component({
   selector: 'app-create-account-form',
@@ -7,20 +9,20 @@ import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
   styleUrls: ['./create-account-form.component.scss']
 })
 export class CreateAccountFormComponent implements OnInit {
-  profileForm = new UntypedFormGroup({
-    username: new UntypedFormControl(''),
-    password:  new UntypedFormControl(''),
-    firstName: new UntypedFormControl(''),
-    lastName: new UntypedFormControl(''),
+  profileForm = new FormGroup({
+    username: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
+    password:  new FormControl('', {nonNullable: true, validators: [Validators.required]}),
+    firstName: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
+    lastName: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
   });
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
   onFormSubmit(): void{
-    const profileData = this.profileForm.value.email.domain;
-
+    const profileData = this.profileForm.getRawValue();
+    this.loginService.createAccount(profileData).subscribe(() => {});
   }
 
 }
