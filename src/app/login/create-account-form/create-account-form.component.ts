@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-create-account-form',
@@ -7,11 +7,11 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./create-account-form.component.scss']
 })
 export class CreateAccountFormComponent implements OnInit {
-  profileForm = new FormGroup({
-    username: new FormControl(''),
-    password:  new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
+  profileForm = new UntypedFormGroup({
+    username: new UntypedFormControl(''),
+    password:  new UntypedFormControl(''),
+    firstName: new UntypedFormControl(''),
+    lastName: new UntypedFormControl(''),
   });
   constructor() { }
 

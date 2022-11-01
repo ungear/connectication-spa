@@ -127,5 +127,7 @@
       }
     }
   },
-  "defaultProject": "connectication-spa"
+  "cli": {
+    "analytics": false
+  }
 }
