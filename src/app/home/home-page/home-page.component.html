@@ -1,7 +1,7 @@
-<div *ngIf="isLoading; else profilesList">... loading</div>
-
-<ng-template #profilesList>
-  <div>
-    <div *ngFor="let profile of userProfiles">{{profile.id}} - {{profile.firstName}}- {{profile.lastName}}</div>
+<div>
+  <div *ngIf="isLoading">... loading</div>
+  <div *ngFor="let profile of userProfiles | async; index as i">
+    {{profile.id}} - {{profile.firstName}}- {{profile.lastName}}
   </div>
-</ng-template>
+</div>
+

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../shared/user.service';
 import {UserProfile} from '../../shared/types/userProfile.interface';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -10,24 +11,21 @@ import {tap} from 'rxjs/operators';
 })
 export class HomePageComponent implements OnInit {
   isLoading = false;
-  userProfiles: UserProfile[] = [];
+  userProfiles: Observable<UserProfile[] | null> | null = null;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userService.getAllUserProfiles()
+    this.userProfiles = this.userService.getAllUserProfiles()
       .pipe(
-        tap(() => this.isLoading = false)
-      )
-      .subscribe(this.onProfilesLoadingSuccess.bind(this), this.onProfilesLoadingFail.bind(this));
+        tap(() => this.isLoading = false),
+        catchError(this.onProfilesLoadingFail.bind(this))
+      );
   }
 
-  onProfilesLoadingSuccess(profiles: UserProfile[]): void{
-    this.userProfiles = profiles;
-  }
-
-  onProfilesLoadingFail(): void{
+  onProfilesLoadingFail(err: any): Observable<null>{
     console.log('fail');
+    return of(null);
   }
 
 }
