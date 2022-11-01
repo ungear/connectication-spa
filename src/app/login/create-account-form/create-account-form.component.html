@@ -1,0 +1,15 @@
+<form [formGroup]="profileForm" class="create-account-form" (submit)="onFormSubmit()">
+  <label for="username">Username: </label>
+  <input id="username" type="text" formControlName="username">
+
+  <label for="password">Password: </label>
+  <input id="password" type="text" formControlName="password">
+
+  <label for="firstName">First Name: </label>
+  <input id="firstName" type="text" formControlName="firstName">
+
+  <label for="lastName">Last Name: </label>
+  <input id="lastName" type="text" formControlName="lastName">
+
+  <button type="submit">Submit</button>
+</form>
