@@ -1,1 +1,7 @@
-<p>home-page works!</p>
+<div *ngIf="isLoading; else profilesList">... loading</div>
+
+<ng-template #profilesList>
+  <div>
+    <div *ngFor="let profile of userProfiles">{{profile.id}} - {{profile.firstName}}- {{profile.lastName}}</div>
+  </div>
+</ng-template>
