@@ -12,6 +12,7 @@ import {Observable, of} from 'rxjs';
 export class HomePageComponent implements OnInit {
   isLoading = false;
   userProfiles: Observable<UserProfile[] | null> | null = null;
+  currentUserProfile: Observable<UserProfile | null> | null = null;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,8 @@ export class HomePageComponent implements OnInit {
         tap(() => this.isLoading = false),
         catchError(this.onProfilesLoadingFail.bind(this))
       );
+
+    this.currentUserProfile = this.userService.getCurrentUserProfile();
   }
 
   onProfilesLoadingFail(err: any): Observable<null>{

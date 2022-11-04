@@ -1,5 +1,8 @@
 <div>
   <div *ngIf="isLoading">... loading</div>
+  <section class="current-user-profile" *ngIf="currentUserProfile | async; let curUser">
+    {{curUser.firstName}}-{{curUser.lastName}}
+  </section>
   <div *ngFor="let profile of userProfiles | async; index as i">
     {{profile.id}} - {{profile.firstName}}- {{profile.lastName}}
   </div>
