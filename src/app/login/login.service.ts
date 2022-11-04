@@ -9,8 +9,6 @@ import {CreateAccountForm} from './types/createAccountForm.interface';
   providedIn: 'root'
 })
 export class LoginService {
-  private accessToken: string | null = null;
-
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   loginUser(username: string, password: string): Observable<any>{
@@ -18,7 +16,7 @@ export class LoginService {
       // TODO get API domain from configs
       .post('http://localhost:3000/auth/login', { username, password}).pipe(
         tap((resp: any) => {
-          if (resp.access_token) { this.authService.accessToken = resp.access_token; }
+          if (resp.access_token) { this.authService.setAccessToken(resp.access_token); }
         })
       );
   }
