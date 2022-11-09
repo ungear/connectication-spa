@@ -12,7 +12,7 @@ import {AuthInterceptor} from './auth.interceptor';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SharedModule
   ],

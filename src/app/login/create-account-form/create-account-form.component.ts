@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
-import {CreateAccountForm} from '../types/createAccountForm.interface';
+import {CreateAccountForm} from '../../types/createAccountForm.interface';
 import {LoginService} from '../login.service';
 
 @Component({

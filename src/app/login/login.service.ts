@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {AuthService} from '../shared/auth.service';
-import {CreateAccountForm} from './types/createAccountForm.interface';
+import {CreateAccountForm} from './../types/createAccountForm.interface';
 
 @Injectable({
   providedIn: 'root'
