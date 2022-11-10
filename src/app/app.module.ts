@@ -8,6 +8,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import {authReducer} from './store/store.reducers';
+import {environment} from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {authReducer} from './store/store.reducers';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot({auth: authReducer}, {})
+    StoreModule.forRoot({auth: authReducer}, {}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
