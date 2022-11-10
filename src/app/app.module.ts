@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {SharedModule} from './shared/shared.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import {authReducer} from './store/store.reducers';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import {AuthInterceptor} from './auth.interceptor';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forRoot({auth: authReducer}, {})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

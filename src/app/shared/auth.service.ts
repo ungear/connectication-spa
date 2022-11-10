@@ -8,7 +8,7 @@ export class AuthService {
   private readonly localStorageKeyForToken = 'CONNECTICATION_JWT';
   constructor() {
     // TODO: inject localstorage to fix SSR
-    const tokenFromStorage = null; // localStorage.getItem(this.localStorageKeyForToken);
+    const tokenFromStorage = localStorage.getItem(this.localStorageKeyForToken);
     if (tokenFromStorage){
       this.accessToken = tokenFromStorage;
     }
