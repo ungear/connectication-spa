@@ -22,4 +22,8 @@ export const authReducer = createReducer(
     AuthActions.currentUserNotAuthorized,
     (state) => ({ ...state, isLogged: false, isInProgress: false, })
   ),
+  on(
+    AuthActions.signOut,
+    (state) => ({ ...state, isLogged: false, userId: null, })
+  ),
 );
