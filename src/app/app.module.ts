@@ -12,6 +12,9 @@ import {environment} from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './store/auth.effects';
+import {NgxsModule} from '@ngxs/store';
+import {AuthStateEngine} from './store-xs/auth.state';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 
 @NgModule({
   declarations: [
@@ -21,9 +24,13 @@ import {AuthEffects} from './store/auth.effects';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot({auth: authReducer}, {}),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects])
+    // StoreModule.forRoot({auth: authReducer}, {}),
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+    // EffectsModule.forRoot([AuthEffects])
+    NgxsModule.forRoot([AuthStateEngine], {
+      developmentMode: !environment.production
+    }),
+    !environment.production ?  NgxsReduxDevtoolsPluginModule.forRoot() :[]
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
