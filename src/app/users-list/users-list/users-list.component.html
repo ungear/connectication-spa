@@ -1,0 +1,7 @@
+<div>
+  <div *ngIf="isLoading">... loading</div>
+  <div *ngFor="let profile of userProfiles | async; index as i">
+    {{profile.id}} - {{profile.firstName}}- {{profile.lastName}}
+  </div>
+</div>
+

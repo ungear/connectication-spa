@@ -11,22 +11,19 @@ import {Observable, of} from 'rxjs';
 })
 export class HomePageComponent implements OnInit {
   isLoading = false;
-  userProfiles: Observable<UserProfile[] | null> | null = null;
   currentUserProfile: Observable<UserProfile | null> | null = null;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userProfiles = this.userService.getAllUserProfiles()
+    this.currentUserProfile = this.userService.getCurrentUserProfile()
       .pipe(
         tap(() => this.isLoading = false),
-        catchError(this.onProfilesLoadingFail.bind(this))
+        catchError(this.onCurrentUserLoadingFail.bind(this))
       );
-
-    this.currentUserProfile = this.userService.getCurrentUserProfile();
   }
 
-  onProfilesLoadingFail(err: any): Observable<null>{
+  onCurrentUserLoadingFail(err: any): Observable<null>{
     console.log('fail');
     return of(null);
   }
