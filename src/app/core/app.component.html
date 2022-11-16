@@ -1,0 +1,19 @@
+<header>
+  <div class="logo">Logo</div>
+  <div class="links">
+    <a routerLink="/login">login</a>
+    *
+    <a routerLink="/home">home</a>
+    *
+    <a routerLink="/users">users</a>
+  </div>
+</header>
+<main>
+  <section class="actions-menu">
+    <app-actions-menu></app-actions-menu>
+  </section>
+  <section class="main-slot">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+

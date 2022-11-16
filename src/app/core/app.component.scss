@@ -1,0 +1,16 @@
+:root{
+  display: block;
+}
+header{
+  display: flex;
+  justify-content: space-between;
+}
+main{
+  display: flex;
+  .actions-menu{
+    width: 200px
+  }
+  .main-slot{
+    flex: 1;
+  }
+}

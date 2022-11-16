@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {ConnecticationStore} from './store/connectication-store.interface';
-import {UserService} from './shared/user.service';
-import {currentUserGet} from './store/auth.actions';
+import {ConnecticationStore} from '../store/connectication-store.interface';
+import {currentUserGet} from '../store/auth.actions';
 
 @Component({
   selector: 'app-root',
