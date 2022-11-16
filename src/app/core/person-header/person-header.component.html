@@ -1,0 +1,6 @@
+<div *ngIf="isLogged$ | async; else guestHeader">
+  <span (click)="onSignOutClick()">sign out</span>
+</div>
+<ng-template #guestHeader>
+  <a routerLink="/login">login</a>
+</ng-template>

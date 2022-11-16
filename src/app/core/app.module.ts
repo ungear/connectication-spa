@@ -13,10 +13,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from '../store/auth.effects';
 import {ActionsMenuComponent} from './actions-menu/actions-menu.component';
+import { PersonHeaderComponent } from './person-header/person-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent, ActionsMenuComponent
+    AppComponent, ActionsMenuComponent, PersonHeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

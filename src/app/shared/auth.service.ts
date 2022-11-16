@@ -22,4 +22,9 @@ export class AuthService {
   getAccessToken(): string | null{
     return this.accessToken;
   }
+
+  signOut(): void{
+    this.accessToken = null;
+    localStorage.removeItem(this.localStorageKeyForToken);
+  }
 }
