@@ -7,9 +7,11 @@ import {SharedModule} from './shared/shared.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth.interceptor';
 import { StoreModule } from '@ngrx/store';
-import {authReducer} from './store/store.reducers';
+import {authReducer} from './store/auth.reducers';
 import {environment} from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     SharedModule,
     StoreModule.forRoot({auth: authReducer}, {}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
