@@ -29,6 +29,7 @@
     "@ngrx/store-devtools": "^14.3.2",
     "@nguniversal/express-engine": "^14.2.1",
     "express": "^4.15.2",
+    "reset-css": "^5.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
