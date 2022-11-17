@@ -1,11 +1,5 @@
 <div>
   <div *ngIf="isLoading">... loading</div>
-  <section class="user-profile" *ngIf="currentUserProfile | async; let curUser">
-    <div class="user-profile__photo"></div>
-    <div class="user-profile__bio">
-      <div>{{curUser.firstName}}</div>
-      <div>{{curUser.lastName}}</div>
-    </div>
-  </section>
+  <app-user-profile *ngIf="currentUserProfile | async; let curProf" [userProfile]="curProf"></app-user-profile>
 </div>
 
