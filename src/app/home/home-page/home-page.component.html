@@ -1,5 +1,6 @@
 <div>
   <div *ngIf="isLoading">... loading</div>
   <app-user-profile *ngIf="currentUserProfile | async; let curProf" [userProfile]="curProf"></app-user-profile>
+  <app-posts-list></app-posts-list>
 </div>
 

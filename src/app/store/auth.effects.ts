@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {EMPTY, of} from 'rxjs';
+import {of} from 'rxjs';
 import {map, catchError, switchMap, tap} from 'rxjs/operators';
 import * as AuthActions from './auth.actions';
 import {UserService} from '../shared/user.service';
@@ -21,7 +21,7 @@ export class AuthEffects {
       ofType(AuthActions.currentUserGet),
       switchMap(action => {
         return this.userService.getCurrentUserProfile().pipe(
-          map(response => AuthActions.currentUserSuccess({userId: response.id})),
+          map(response => AuthActions.currentUserSuccess({userId: response.userId, userProfile: response.profile})),
           catchError((error: any) => of(AuthActions.currentUserNotAuthorized()))
         );
       })

@@ -15,10 +15,10 @@ export class UserService {
     return this.http.get<UserProfile[]>('http://localhost:3000/user/all-profiles');
   }
 
-  getCurrentUserProfile(): Observable<UserProfile>{
+  getCurrentUserProfile(): Observable<{userId: number, profile: UserProfile}>{
     return this.http.get<any>('http://localhost:3000/user/current').pipe(
       map(resp => {
-        return resp.profile;
+        return resp;
       }));
   }
 }

@@ -6,6 +6,7 @@ const initialState: AuthState = {
   isInProgress: false,
   isLogged: false,
   userId: null,
+  userProfile: null,
 };
 
 export const authReducer = createReducer(
@@ -16,7 +17,7 @@ export const authReducer = createReducer(
   ),
   on(
     AuthActions.currentUserSuccess,
-    (state, {userId}) => ({ ...state, isLogged: true, isInProgress: false, userId })
+    (state, {userId, userProfile}) => ({ ...state, isLogged: true, isInProgress: false, userId, userProfile })
   ),
   on(
     AuthActions.currentUserNotAuthorized,
@@ -24,6 +25,6 @@ export const authReducer = createReducer(
   ),
   on(
     AuthActions.signOut,
-    (state) => ({ ...state, isLogged: false, userId: null, })
+    (state) => ({ ...state, isLogged: false, userId: null, userProfile: null })
   ),
 );
