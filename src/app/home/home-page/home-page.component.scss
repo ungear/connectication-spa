@@ -1,4 +1,12 @@
-.current-user-profile{
-  padding: 10px;
-  border: 1px solid #ccc;
+.user-profile {
+  display: flex;
+  &__photo{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+  }
+  &__bio {
+    flex: 1;
+    padding-left: 10px;
+  }
 }

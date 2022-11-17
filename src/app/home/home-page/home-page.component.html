@@ -1,7 +1,11 @@
 <div>
   <div *ngIf="isLoading">... loading</div>
-  <section class="current-user-profile" *ngIf="currentUserProfile | async; let curUser">
-    {{curUser.firstName}}-{{curUser.lastName}}
+  <section class="user-profile" *ngIf="currentUserProfile | async; let curUser">
+    <div class="user-profile__photo"></div>
+    <div class="user-profile__bio">
+      <div>{{curUser.firstName}}</div>
+      <div>{{curUser.lastName}}</div>
+    </div>
   </section>
 </div>
 
