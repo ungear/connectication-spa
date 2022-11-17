@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {ConnecticationStore} from '../../store/connectication-store.interface';
 import {map} from 'rxjs/operators';
 import {signOut} from '../../store/auth.actions';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-person-header',
@@ -13,7 +14,8 @@ import {signOut} from '../../store/auth.actions';
 export class PersonHeaderComponent implements OnInit {
   isLogged$: Observable<boolean> | null = null;
   constructor(
-    private store: Store<ConnecticationStore>
+    private store: Store<ConnecticationStore>,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class PersonHeaderComponent implements OnInit {
 
   onSignOutClick(): void {
     this.store.dispatch(signOut());
+    this.router.navigateByUrl('/login');
   }
 
 }
