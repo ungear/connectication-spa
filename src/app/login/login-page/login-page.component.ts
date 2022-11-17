@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../login.service';
+import {Store} from '@ngrx/store';
+import {ConnecticationStore} from '../../store/connectication-store.interface';
+import {currentUserGet} from '../../store/auth.actions';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +14,11 @@ export class LoginPageComponent implements OnInit {
   username: string | null = null;
   password: string | null = null;
   message: string | null = null;
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private loginService: LoginService,
+    private store: Store<ConnecticationStore>,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -24,8 +32,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLoginSuccess(): void{
-    // TODO redirect to the Home page
-    this.message = 'Login success';
+    this.store.dispatch(currentUserGet());
+    this.router.navigateByUrl('/');
   }
 
   onLoginFail(): void {
