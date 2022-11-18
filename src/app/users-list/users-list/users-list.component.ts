@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {UserProfile} from '../../shared/types/userProfile.interface';
 import {UserService} from '../../shared/user.service';
 import {catchError, tap} from 'rxjs/operators';
+import {User} from '../../shared/types/user.interface';
 
 @Component({
   selector: 'app-users-list',
@@ -11,12 +11,12 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class UsersListComponent implements OnInit {
   isLoading = false;
-  userProfiles: Observable<UserProfile[] | null> | null = null;
+  users: Observable<User[] | null> | null = null;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userProfiles = this.userService.getAllUserProfiles()
+    this.users = this.userService.getAllUsers()
       .pipe(
         tap(() => this.isLoading = false),
         catchError(this.onProfilesLoadingFail.bind(this))

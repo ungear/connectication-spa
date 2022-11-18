@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserProfile} from './types/userProfile.interface';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {User} from './types/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUserProfiles(): Observable<UserProfile[]>{
-    return this.http.get<UserProfile[]>('http://localhost:3000/user/all-profiles');
+  getAllUsers(): Observable<User[]>{
+    return this.http.get<User[]>('http://localhost:3000/user/all').pipe(
+      map(x => x.filter(u => !!u.profile))
+    );
   }
 
   getCurrentUserProfile(): Observable<{userId: number, profile: UserProfile}>{
