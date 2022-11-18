@@ -5,6 +5,7 @@ import {UserPageRoutingModule} from './user-page-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
   ],
   imports: [
     CommonModule,
-    UserPageRoutingModule
+    UserPageRoutingModule,
+    FormsModule,
   ]
 })
 export class UserPageModule { }

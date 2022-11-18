@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostService} from '../post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
-
-  constructor() { }
+  postText: string | null = null;
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
+  }
+
+  onFormSubmit(): void{
+    if (!this.postText) {return; }
+    this.postService.createPost(this.postText).subscribe(console.log);
   }
 
 }

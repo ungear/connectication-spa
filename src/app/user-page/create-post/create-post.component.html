@@ -1,1 +1,4 @@
-<p>create-post works!</p>
+<form (submit)="onFormSubmit()">
+  <input [(ngModel)]="postText" name="postText">
+  <button>Create</button>
+</form>

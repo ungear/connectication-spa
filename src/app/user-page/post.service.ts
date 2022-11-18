@@ -13,4 +13,8 @@ export class PostService {
   getUserPosts(): Observable<Post[]>{
     return this.http.get<Post[]>('http://localhost:3000/user/all-posts');
   }
+
+  createPost(text: string): Observable<any> {
+    return this.http.post<any>('http://localhost:3000/post', {text});
+  }
 }
