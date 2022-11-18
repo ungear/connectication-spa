@@ -5,6 +5,7 @@ export interface ConnecticationStore {
 }
 
 export interface AuthState {
+  isInitialCheckDone: boolean;
   isInProgress: boolean;
   isLogged: boolean;
   userId: number | null;

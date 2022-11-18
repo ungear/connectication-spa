@@ -11,6 +11,8 @@ import {map} from 'rxjs/operators';
 })
 export class ActionsMenuComponent implements OnInit {
   isLogged$: Observable<boolean> | null = null;
+  isReady$: Observable<boolean> | null = null;
+  userId$: Observable<number | null> | null = null;
   constructor(
     private store: Store<ConnecticationStore>
   ) { }
@@ -18,5 +20,11 @@ export class ActionsMenuComponent implements OnInit {
   ngOnInit(): void {
     this.isLogged$ = this.store.select('auth')
       .pipe(map(x => x.isLogged));
+
+    this.isReady$ = this.store.select('auth')
+      .pipe(map(x => x.isInitialCheckDone));
+
+    this.userId$ = this.store.select('auth')
+      .pipe(map(x => x.userId));
   }
 }

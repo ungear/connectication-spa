@@ -1,7 +1,11 @@
-<ul>
-  <li *ngIf="isLogged$ | async">
-    <a routerLink="/home">Home</a>
-  </li>
-  <li><a routerLink="/users">Users</a></li>
-</ul>
+<div *ngIf="!(isReady$ | async) else actionsList">... loading</div>
+
+<ng-template #actionsList>
+  <ul>
+    <li *ngIf="isLogged$ | async">
+      <a routerLink="/user/{{userId$ | async}}">Home</a>
+    </li>
+    <li><a routerLink="/users">Users</a></li>
+  </ul>
+</ng-template>
 

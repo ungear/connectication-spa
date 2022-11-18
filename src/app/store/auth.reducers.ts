@@ -7,6 +7,7 @@ const initialState: AuthState = {
   isLogged: false,
   userId: null,
   userProfile: null,
+  isInitialCheckDone: false,
 };
 
 export const authReducer = createReducer(
@@ -17,11 +18,11 @@ export const authReducer = createReducer(
   ),
   on(
     AuthActions.currentUserSuccess,
-    (state, {userId, userProfile}) => ({ ...state, isLogged: true, isInProgress: false, userId, userProfile })
+    (state, {userId, userProfile}) => ({ ...state, isLogged: true, isInProgress: false, userId, isInitialCheckDone: true, userProfile,  })
   ),
   on(
     AuthActions.currentUserNotAuthorized,
-    (state) => ({ ...state, isLogged: false, isInProgress: false, })
+    (state) => ({ ...state, isLogged: false, isInProgress: false, isInitialCheckDone: true})
   ),
   on(
     AuthActions.signOut,
