@@ -9,7 +9,7 @@
     <app-actions-menu></app-actions-menu>
   </section>
   <section class="main-slot">
-    <router-outlet></router-outlet>
+    <router-outlet *ngIf="(isUserLoaded$ | async)"></router-outlet>
   </section>
 </main>
 

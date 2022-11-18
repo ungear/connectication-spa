@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../shared/user.service';
 import {UserProfile} from '../../shared/types/userProfile.interface';
-import {tap, map, filter} from 'rxjs/operators';
+import {tap, map, filter, take} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ConnecticationStore} from '../../store/connectication-store.interface';
@@ -15,6 +15,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class UserComponent implements OnInit {
   isLoading = false;
+  isOwner: boolean | null = null;
   currentUserProfile: Observable<UserProfile | null> | null = null;
   constructor(
     private userService: UserService,
@@ -24,13 +25,20 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.params.userId;
-    // TODO what if param contains letters or absents
-    if (!userId) { return; }
+    const paramUserId = this.route.snapshot.params.userId;
+    // TODO validate routing params; consider https://stackoverflow.com/questions/57005764/angular-routing-optional-parameter-validation
+    if (!paramUserId) { return; }
     this.isLoading = true;
-    this.currentUserProfile = this.userService.getUserProfile(userId).pipe(
+    this.currentUserProfile = this.userService.getUserProfile(paramUserId).pipe(
       tap(() => this.isLoading = false),
     );
+
+    this.store.select('auth')
+      .pipe(
+        filter(x => x.isInitialCheckDone),
+        map(x => x.userId),
+        take(1),
+      ).subscribe((currentUserId) => this.isOwner = !!currentUserId && currentUserId === parseInt(paramUserId, 10));
 
     // this.postService.getUserPosts().subscribe(console.log);
   }
