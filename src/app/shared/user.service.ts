@@ -21,4 +21,8 @@ export class UserService {
         return resp;
       }));
   }
+
+  getUserProfile(userId: number): Observable<UserProfile>{
+    return this.http.get<UserProfile>(`http://localhost:3000/user/${userId}/profile`);
+  }
 }

@@ -6,6 +6,7 @@ import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ConnecticationStore} from '../../store/connectication-store.interface';
 import {PostService} from '../post.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -18,18 +19,20 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private postService: PostService,
-    private store: Store<ConnecticationStore>
+    private store: Store<ConnecticationStore>,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    const userId = this.route.snapshot.params.userId;
+    // TODO what if param contains letters or absents
+    if (!userId) { return; }
     this.isLoading = true;
-    this.currentUserProfile = this.store.select('auth').pipe(
-      map(x => x.userProfile),
-      filter(x => !!x),
+    this.currentUserProfile = this.userService.getUserProfile(userId).pipe(
       tap(() => this.isLoading = false),
     );
 
-    this.postService.getUserPosts().subscribe(console.log);
+    // this.postService.getUserPosts().subscribe(console.log);
   }
 
   onCurrentUserLoadingFail(err: any): Observable<null>{
