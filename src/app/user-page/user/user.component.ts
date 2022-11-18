@@ -8,11 +8,11 @@ import {ConnecticationStore} from '../../store/connectication-store.interface';
 import {PostService} from '../post.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class UserComponent implements OnInit {
   isLoading = false;
   currentUserProfile: Observable<UserProfile | null> | null = null;
   constructor(
