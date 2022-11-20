@@ -14,6 +14,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  userId: string | null = null;
   isLoading = false;
   isOwner: boolean | null = null;
   currentUserProfile: Observable<UserProfile | null> | null = null;
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
     const paramUserId = this.route.snapshot.params.userId;
     // TODO validate routing params; consider https://stackoverflow.com/questions/57005764/angular-routing-optional-parameter-validation
     if (!paramUserId) { return; }
+    this.userId = paramUserId;
     this.isLoading = true;
     this.currentUserProfile = this.userService.getUserProfile(paramUserId).pipe(
       tap(() => this.isLoading = false),

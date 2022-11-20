@@ -10,8 +10,8 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getUserPosts(): Observable<Post[]>{
-    return this.http.get<Post[]>('http://localhost:3000/user/all-posts');
+  getUserPosts(userId: number | string): Observable<Post[]>{
+    return this.http.get<Post[]>(`http://localhost:3000/post/all-posts/${userId}`);
   }
 
   createPost(text: string): Observable<any> {
