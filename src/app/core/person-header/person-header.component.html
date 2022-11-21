@@ -1,7 +1,7 @@
-<div *ngIf="isLogged$ | async; else guestHeader">
+<div *ngIf="isLogged$ | async; else guestHeader" class="authenticated-actions">
   <ng-container *ngIf="userProfile$ | async as profile">{{profile.firstName}} {{profile.lastName}}</ng-container>
   <span> | </span>
-  <span (click)="onSignOutClick()">sign out</span>
+  <span class="pointer authenticated-actions__sign-out" (click)="onSignOutClick()">sign out</span>
 </div>
 <ng-template #guestHeader>
   <a routerLink="/login">login</a>
