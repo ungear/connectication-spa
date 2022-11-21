@@ -1,7 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from '../types/post.interface';
-import {Observable} from 'rxjs';
+import {merge, Observable, of} from 'rxjs';
 import {PostService} from '../post.service';
+import {UserPageService} from '../user-page.service';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts-list',
@@ -11,10 +13,19 @@ import {PostService} from '../post.service';
 export class PostsListComponent implements OnInit {
   @Input() userId!: string;
   posts$: Observable<Post[]> | null = null;
-  constructor(private postService: PostService) { }
+  constructor(
+    private postService: PostService,
+    private userPageService: UserPageService,
+  ) {}
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getUserPosts(this.userId);
+    // fetch all posts right away AND when user creates a new post
+    this.posts$ = merge(
+      of(1),
+      this.userPageService.postCreated$
+    ).pipe(
+      switchMap(() => this.postService.getUserPosts(this.userId))
+    );
   }
 
 }
