@@ -1,7 +1,12 @@
 <div>
-  <div *ngIf="isLoading">... loading</div>
-  <app-user-profile *ngIf="currentUserProfile | async; let curProf" [userProfile]="curProf"></app-user-profile>
-  <app-create-post *ngIf="isOwner"></app-create-post>
-  <app-posts-list  *ngIf="userId" [userId]="userId"></app-posts-list>
+  <ng-container *ngIf="userProfile$ | async as profile; else loading">
+    <app-user-profile [userProfile]="profile"></app-user-profile>
+    <app-create-post *ngIf="isOwner"></app-create-post>
+    <app-posts-list  *ngIf="userId" [userId]="userId"></app-posts-list>
+  </ng-container>
 </div>
+
+<ng-template #loading>
+  <div>... loading</div>
+</ng-template>
 
