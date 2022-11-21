@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ConnecticationStore} from '../../store/connectication-store.interface';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {signOut} from '../../store/auth.actions';
 import {Router} from '@angular/router';
+import {UserProfile} from '../../shared/types/userProfile.interface';
 
 @Component({
   selector: 'app-person-header',
@@ -13,6 +14,7 @@ import {Router} from '@angular/router';
 })
 export class PersonHeaderComponent implements OnInit {
   isLogged$: Observable<boolean> | null = null;
+  userProfile$: Observable<UserProfile> | null = null;
   constructor(
     private store: Store<ConnecticationStore>,
     private router: Router,
@@ -21,6 +23,11 @@ export class PersonHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isLogged$ = this.store.select('auth')
       .pipe(map(x => x.isLogged));
+    this.userProfile$ = this.store.select('auth')
+      .pipe(
+        map(x => x.userProfile),
+        filter((x): x is UserProfile => !!x),
+      );
   }
 
   onSignOutClick(): void {

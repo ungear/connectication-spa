@@ -1,4 +1,6 @@
 <div *ngIf="isLogged$ | async; else guestHeader">
+  <ng-container *ngIf="userProfile$ | async as profile">{{profile.firstName}} {{profile.lastName}}</ng-container>
+  <span> | </span>
   <span (click)="onSignOutClick()">sign out</span>
 </div>
 <ng-template #guestHeader>
