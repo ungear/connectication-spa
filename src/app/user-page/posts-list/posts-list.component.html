@@ -1,7 +1,14 @@
-<ul *ngIf="(posts$ | async)?.length; else noPostsYet">
-  <li *ngFor="let post of posts$ | async">{{post.text}}</li>
-</ul>
+<ng-container *ngIf="posts$ | async as posts; else loading">
+  <ul *ngIf="posts.length; else noPostsYet">
+    <li *ngFor="let post of posts">{{post.text}}</li>
+  </ul>
+</ng-container>
 
 <ng-template #noPostsYet>
   There are no posts yet
 </ng-template>
+
+<ng-template #loading>
+  <div>... loading</div>
+</ng-template>
+
