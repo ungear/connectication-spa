@@ -15,7 +15,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class UserComponent implements OnInit {
   userId: string | null = null;
-  isOwner: boolean | null = null;
+  isOwner = false;
   userProfile$: Observable<UserProfile | null> | null = null;
   constructor(
     private userService: UserService,

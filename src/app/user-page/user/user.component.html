@@ -2,7 +2,7 @@
   <ng-container *ngIf="userProfile$ | async as profile; else loading">
     <app-user-profile [userProfile]="profile"></app-user-profile>
     <app-create-post *ngIf="isOwner"></app-create-post>
-    <app-posts-list  *ngIf="userId" [userId]="userId"></app-posts-list>
+    <app-posts-list  *ngIf="userId" [userId]="userId" [isOwner]="isOwner"></app-posts-list>
   </ng-container>
 </div>
 

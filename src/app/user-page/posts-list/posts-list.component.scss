@@ -5,3 +5,11 @@
     padding: 5px;
   }
 }
+
+.top-controls{
+  display: flex;
+  justify-content: end;
+  &__delete{
+
+  }
+}

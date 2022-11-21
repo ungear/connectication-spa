@@ -12,6 +12,7 @@ import {switchMap} from 'rxjs/operators';
 })
 export class PostsListComponent implements OnInit {
   @Input() userId!: string;
+  @Input() isOwner!: boolean;
   posts$: Observable<Post[]> | null = null;
   constructor(
     private postService: PostService,
@@ -26,6 +27,10 @@ export class PostsListComponent implements OnInit {
     ).pipe(
       switchMap(() => this.postService.getUserPosts(this.userId))
     );
+  }
+
+  onDeleteClick(postId: number): void{
+    this.postService.deletePost(postId).subscribe();
   }
 
 }

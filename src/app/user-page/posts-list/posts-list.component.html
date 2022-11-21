@@ -1,6 +1,13 @@
 <ng-container *ngIf="posts$ | async as posts; else loading">
   <ul *ngIf="posts.length; else noPostsYet" class="posts-list">
-    <li *ngFor="let post of posts" class="posts-list__post">{{post.text}}</li>
+    <li *ngFor="let post of posts" class="posts-list__post">
+      <div *ngIf="isOwner" class="top-controls">
+        <span class="top-controls__delete" (click)="onDeleteClick(post.id)">delete</span>
+      </div>
+      <div>
+        {{post.text}}
+      </div>
+    </li>
   </ul>
 </ng-container>
 
