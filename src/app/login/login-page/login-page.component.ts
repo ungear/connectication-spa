@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {ConnecticationStore} from '../../store/connectication-store.interface';
 import {currentUserGet} from '../../store/auth.actions';
 import {Router} from '@angular/router';
+import {filter, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-page',
@@ -33,7 +34,10 @@ export class LoginPageComponent implements OnInit {
 
   onLoginSuccess(): void{
     this.store.dispatch(currentUserGet());
-    this.router.navigateByUrl('/');
+    this.store.select('auth').pipe(
+      map(x => x.userId),
+      filter((x): x is number => !!x),
+    ).subscribe(userId => this.router.navigateByUrl(`/user/${userId}`));
   }
 
   onLoginFail(): void {
