@@ -1,4 +1,6 @@
-<form (submit)="onFormSubmit()" autocomplete="off">
-  <input [(ngModel)]="postText" name="postText">
-  <button>Create</button>
+<form (submit)="onFormSubmit()" autocomplete="off" class="create-post">
+  <textarea [(ngModel)]="postText" name="postText" class="create-post__text"></textarea>
+  <div class="create-post__buttons">
+    <button>Create</button>
+  </div>
 </form>
