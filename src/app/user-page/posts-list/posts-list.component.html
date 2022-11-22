@@ -2,6 +2,7 @@
   <ul *ngIf="posts.length; else noPostsYet" class="posts-list">
     <li *ngFor="let post of posts" class="posts-list__post">
       <div *ngIf="isOwner" class="top-controls">
+        <span>{{post.createdDate | date:'hh:mm dd MMM YYYY'}}</span>
         <span class="top-controls__delete pointer" (click)="onDeleteClick(post.id)">delete</span>
       </div>
       <div>
