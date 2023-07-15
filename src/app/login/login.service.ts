@@ -4,12 +4,13 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {AuthService} from '../shared/auth.service';
 import {CreateAccountForm} from './../types/createAccountForm.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  apiUrl = 'http://ec2-44-204-52-105.compute-1.amazonaws.com'
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   loginUser(username: string, password: string): Observable<any>{

@@ -4,12 +4,13 @@ import {UserProfile} from './types/userProfile.interface';
 import {Observable} from 'rxjs';
 import {User} from './types/user.interface';
 import {map} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = 'http://ec2-44-204-52-105.compute-1.amazonaws.com'
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<User[]>{
