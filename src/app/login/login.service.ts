@@ -9,12 +9,13 @@ import {CreateAccountForm} from './../types/createAccountForm.interface';
   providedIn: 'root'
 })
 export class LoginService {
+  apiUrl = 'http://ec2-44-204-52-105.compute-1.amazonaws.com'
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   loginUser(username: string, password: string): Observable<any>{
     return this.http
       // TODO get API domain from configs
-      .post('http://localhost:3000/auth/login', { username, password}).pipe(
+      .post(this.apiUrl + '/auth/login', { username, password}).pipe(
         tap((resp: any) => {
           if (resp.access_token) { this.authService.setAccessToken(resp.access_token); }
         })
@@ -24,7 +25,7 @@ export class LoginService {
   createAccount(createProfileFormFields: CreateAccountForm): Observable<object>{
     return this.http
       // TODO get API domain from configs
-      .post('http://localhost:3000/user', createProfileFormFields);
+      .post(this.apiUrl + '/user', createProfileFormFields);
   }
 }
 

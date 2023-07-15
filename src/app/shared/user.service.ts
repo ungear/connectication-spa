@@ -9,23 +9,23 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-
+  apiUrl = 'http://ec2-44-204-52-105.compute-1.amazonaws.com'
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<User[]>{
-    return this.http.get<User[]>('http://localhost:3000/user/all').pipe(
+    return this.http.get<User[]>(this.apiUrl + '/user/all').pipe(
       map(x => x.filter(u => !!u.profile))
     );
   }
 
   getCurrentUserProfile(): Observable<{userId: number, profile: UserProfile}>{
-    return this.http.get<any>('http://localhost:3000/user/current').pipe(
+    return this.http.get<any>(this.apiUrl + '/user/current').pipe(
       map(resp => {
         return resp;
       }));
   }
 
   getUserProfile(userId: number): Observable<UserProfile>{
-    return this.http.get<UserProfile>(`http://localhost:3000/user/${userId}/profile`);
+    return this.http.get<UserProfile>(`${this.apiUrl}/user/${userId}/profile`);
   }
 }
