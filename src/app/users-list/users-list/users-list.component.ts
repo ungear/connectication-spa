@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {UserService} from '../../shared/user.service';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, filter, map, tap, withLatestFrom} from 'rxjs/operators';
 import {User} from '../../shared/types/user.interface';
 
 @Component({
@@ -11,21 +11,37 @@ import {User} from '../../shared/types/user.interface';
 })
 export class UsersListComponent implements OnInit {
   isLoading = false;
-  users: Observable<User[] | null> | null = null;
+  usersSource$: Observable<User[] | null> | null = null;
+  visibleUsers$: Observable<User[] | null> | null = null;
   constructor(private userService: UserService) { }
+  userSearch$ = new BehaviorSubject('');
+  userSearch = '';
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.users = this.userService.getAllUsers()
+    this.usersSource$ = this.userService.getAllUsers()
       .pipe(
         tap(() => this.isLoading = false),
         catchError(this.onProfilesLoadingFail.bind(this))
       );
+
+    this.visibleUsers$ = combineLatest([this.usersSource$, this.userSearch$]).pipe(
+      filter(([users, search]) => !!users),
+      map(([users, search]) => {
+        console.log('users')
+        return users!.filter(x => x.profile.firstName.includes(search) || x.profile.lastName.includes(search));
+      })
+    ) ;
   }
 
   onProfilesLoadingFail(err: any): Observable<null>{
     console.log('fail');
     return of(null);
+  }
+
+  onUserSearchUpdated(term: string): void{
+    this.userSearch = term;
+    this.userSearch$.next(term);
   }
 
 }

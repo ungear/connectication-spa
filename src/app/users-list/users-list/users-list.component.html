@@ -1,6 +1,7 @@
 <div>
+  <app-toolbar (nameChanged)="onUserSearchUpdated($event)"></app-toolbar>
   <div *ngIf="isLoading">... loading</div>
-  <div *ngFor="let user of users | async; index as i">
+  <div *ngFor="let user of visibleUsers$ | async; index as i">
     <a href="/user/{{user.id}}">{{user.id}} - {{user.profile.firstName}} - {{user.profile.lastName}}</a>
   </div>
 </div>
