@@ -28,7 +28,6 @@ export class UsersListComponent implements OnInit {
     this.visibleUsers$ = combineLatest([this.usersSource$, this.userSearch$]).pipe(
       filter(([users, search]) => !!users),
       map(([users, search]) => {
-        console.log('users')
         return users!.filter(x => x.profile.firstName.includes(search) || x.profile.lastName.includes(search));
       })
     ) ;

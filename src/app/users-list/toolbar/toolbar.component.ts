@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Subscription, fromEvent } from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -6,16 +8,26 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements AfterViewInit, OnDestroy {
   @Output() nameChanged = new EventEmitter<string>();
-  searchTerm = '';
+  @ViewChild('search') searchTermInput!: ElementRef;
+  subscription = new Subscription();
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    const s = fromEvent<{target: HTMLInputElement}>(this.searchTermInput.nativeElement, 'input').pipe(
+      map(event => event.target.value),
+      debounceTime(500)
+    )
+    .subscribe((value) => {
+      this.nameChanged.emit(value);
+    });
+
+    this.subscription.add(s);
   }
 
-  onSearchTermChanged(){
-    this.nameChanged.emit(this.searchTerm);
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }
